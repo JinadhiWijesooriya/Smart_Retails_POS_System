@@ -25,7 +25,7 @@ class DashboardSummaryView(APIView):
 
         # Low stock count
         low_stock_count = 0
-        for inv in Inventory.objects.select_for_update():
+        for inv in Inventory.objects.select_related('product').all():
             if inv.quantity <= inv.product.min_stock:
                 low_stock_count += 1
 
