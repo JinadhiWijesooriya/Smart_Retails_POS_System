@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: smartpos_prod_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-smart_retail_pos}
+      POSTGRES_USER: ${POSTGRES_USER:-pos_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-super_secure_production_password}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-pos_user} -d ${POSTGRES_DB:-smart_retail_pos}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    image: ghcr.io/jinadhiwijesooriya/smartpos-backend:latest
+    container_name: smartpos_prod_backend
+    restart: always
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=${SECRET_KEY:-pos_production_secret_key_change_me_in_env}
+      - DB_ENGINE=django.db.backends.postgresql
+      - DB_NAME=${POSTGRES_DB:-smart_retail_pos}
+      - DB_USER=${POSTGRES_USER:-pos_user}
+      - DB_PASSWORD=${POSTGRES_PASSWORD:-super_secure_production_password}
+      - DB_HOST=db
+      - DB_PORT=5432
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    image: ghcr.io/jinadhiwijesooriya/smartpos-frontend:latest
+    container_name: smartpos_prod_frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_prod_data:
