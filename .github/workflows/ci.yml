@@ -25,7 +25,7 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
+          --health-cmd "pg_isready -U pos_test_user -d smart_retail_pos_test"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -54,27 +54,33 @@ jobs:
           cd backend
           python manage.py check
 
-      - name: Run Django Migrations Check
+      - name: Run Django Migrations
         env:
           SECRET_KEY: ci-test-secret-key-django-smartpos-12345
           DEBUG: "True"
+          DB_ENGINE: django.db.backends.postgresql
           DB_HOST: localhost
           DB_PORT: 5432
           DB_NAME: smart_retail_pos_test
+          DB_USER: pos_test_user
+          DB_PASSWORD: pos_test_password
           POSTGRES_DB: smart_retail_pos_test
           POSTGRES_USER: pos_test_user
           POSTGRES_PASSWORD: pos_test_password
         run: |
           cd backend
-          python manage.py migrate --check
+          python manage.py migrate
 
       - name: Run Django Test Suite
         env:
           SECRET_KEY: ci-test-secret-key-django-smartpos-12345
           DEBUG: "True"
+          DB_ENGINE: django.db.backends.postgresql
           DB_HOST: localhost
           DB_PORT: 5432
           DB_NAME: smart_retail_pos_test
+          DB_USER: pos_test_user
+          DB_PASSWORD: pos_test_password
           POSTGRES_DB: smart_retail_pos_test
           POSTGRES_USER: pos_test_user
           POSTGRES_PASSWORD: pos_test_password
