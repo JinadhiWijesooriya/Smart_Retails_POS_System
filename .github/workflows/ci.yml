@@ -30,6 +30,20 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      SECRET_KEY: ci-test-secret-key-django-smartpos-12345
+      DEBUG: "True"
+      PYTHONPATH: .
+      DB_ENGINE: django.db.backends.postgresql
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_NAME: smart_retail_pos_test
+      DB_USER: pos_test_user
+      DB_PASSWORD: pos_test_password
+      POSTGRES_DB: smart_retail_pos_test
+      POSTGRES_USER: pos_test_user
+      POSTGRES_PASSWORD: pos_test_password
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -50,6 +64,15 @@ jobs:
         env:
           SECRET_KEY: ci-test-secret-key-django-smartpos-12345
           DEBUG: "True"
+          DB_ENGINE: django.db.backends.postgresql
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: smart_retail_pos_test
+          DB_USER: pos_test_user
+          DB_PASSWORD: pos_test_password
+          POSTGRES_DB: smart_retail_pos_test
+          POSTGRES_USER: pos_test_user
+          POSTGRES_PASSWORD: pos_test_password
         run: |
           cd backend
           python manage.py check
