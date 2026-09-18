@@ -1,0 +1,298 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-800 antialiased font-sans select-none;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+/* 3D Visual Depth & Tactile Perspectives */
+.perspective-container {
+  perspective: 1200px;
+}
+
+.perspective-deep {
+  perspective: 1600px;
+}
+
+/* 3D Product & Dashboard Cards */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 6px 12px -2px rgba(79, 70, 229, 0.05),
+    0 12px 24px -4px rgba(0, 0, 0, 0.04);
+}
+
+.card-3d:hover {
+  transform: translateY(-6px) scale(1.02) rotateX(3deg) rotateY(-1deg);
+  box-shadow: 
+    0 22px 35px -8px rgba(79, 70, 229, 0.18),
+    0 12px 18px -4px rgba(79, 70, 229, 0.10),
+    0 0 0 1.5px rgba(99, 102, 241, 0.35);
+}
+
+.card-3d-floating {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 25px -5px rgba(15, 23, 42, 0.06),
+    0 8px 10px -6px rgba(15, 23, 42, 0.04),
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset;
+}
+
+.card-3d-floating:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 30px -8px rgba(15, 23, 42, 0.12),
+    0 10px 14px -5px rgba(15, 23, 42, 0.06),
+    0 1px 0 0 rgba(255, 255, 255, 1) inset;
+}
+
+/* Tactile 3D Buttons */
+.btn-3d {
+  position: relative;
+  transition: all 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 0 0 #3730a3, 0 8px 18px rgba(79, 70, 229, 0.35);
+}
+
+.btn-3d:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 0 #3730a3, 0 12px 22px rgba(79, 70, 229, 0.4);
+}
+
+.btn-3d:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 0 #3730a3, 0 2px 4px rgba(79, 70, 229, 0.25);
+}
+
+.btn-3d-emerald {
+  box-shadow: 0 4px 0 0 #065f46, 0 8px 18px rgba(16, 185, 129, 0.3);
+}
+
+.btn-3d-emerald:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 0 0 #065f46, 0 12px 22px rgba(16, 185, 129, 0.35);
+}
+
+.btn-3d-emerald:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 0 #065f46, 0 2px 4px rgba(16, 185, 129, 0.25);
+}
+
+.btn-3d-slate {
+  box-shadow: 0 3px 0 0 #cbd5e1, 0 6px 12px rgba(100, 116, 139, 0.12);
+}
+
+.btn-3d-slate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 0 #94a3b8, 0 8px 16px rgba(100, 116, 139, 0.18);
+}
+
+.btn-3d-slate:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 0 #94a3b8, 0 2px 4px rgba(100, 116, 139, 0.1);
+}
+
+/* 3D Quick-Tender chips in Payment */
+.tender-3d {
+  transition: all 0.15s ease;
+  box-shadow: 0 2px 0 0 #e2e8f0, 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.tender-3d:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 0 0 #cbd5e1, 0 8px 12px -2px rgba(0, 0, 0, 0.08);
+}
+
+.tender-3d:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 0 #cbd5e1;
+}
+
+/* Visual Effects, Shimmers, Glows & Micro-animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.shimmer-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes laser-scan {
+  0%, 100% {
+    top: 0%;
+    opacity: 0.2;
+  }
+  50% {
+    top: 95%;
+    opacity: 0.9;
+  }
+}
+
+.scanner-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6366f1, #ec4899, #6366f1, transparent);
+  box-shadow: 0 0 8px 2px rgba(99, 102, 241, 0.6);
+  animation: laser-scan 2.2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.92) translateY(6px);
+  }
+  70% {
+    transform: scale(1.02) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes success-burst {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-success-burst {
+  animation: success-burst 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Glassmorphism Surface */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Dynamic Interactive Table Row Hover Effects */
+.table-row-interactive {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-row-interactive:hover {
+  background-color: #f5f3ff !important; /* Soft Indigo Tint */
+  box-shadow: inset 4px 0 0 0 #4f46e5, 0 4px 12px rgba(79, 70, 229, 0.08);
+  transform: translateX(4px);
+}
+
+.table-row-out-of-stock:hover {
+  background-color: #fff1f2 !important; /* Soft Rose Highlight */
+  box-shadow: inset 4px 0 0 0 #e11d48, 0 4px 12px rgba(225, 29, 72, 0.1);
+  transform: translateX(4px);
+}
+
+.table-row-low-stock:hover {
+  background-color: #fffbeb !important; /* Soft Amber Highlight */
+  box-shadow: inset 4px 0 0 0 #d97706, 0 4px 12px rgba(217, 119, 6, 0.1);
+  transform: translateX(4px);
+}
+
+.table-row-healthy:hover {
+  background-color: #ecfdf5 !important; /* Soft Emerald Highlight */
+  box-shadow: inset 4px 0 0 0 #059669, 0 4px 12px rgba(5, 150, 105, 0.1);
+  transform: translateX(4px);
+}
+
+/* Custom Scrollbar for POS product catalog & receipts */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80mm;
+    margin: 0;
+    padding: 10px;
+    background: white !important;
+    color: black !important;
+  }
+}
